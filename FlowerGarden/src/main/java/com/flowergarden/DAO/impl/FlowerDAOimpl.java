@@ -3,20 +3,25 @@ package com.flowergarden.DAO.impl;
 import com.flowergarden.DAO.FlowerDAO;
 import com.flowergarden.flowers.*;
 import com.flowergarden.properties.FreshnessInteger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by OleksiiF on 13.03.2018.
  */
+@Repository
 public class FlowerDAOimpl implements FlowerDAO {
 
     private Connection conn;
     private ArrayList<Float> resultArrayListWithPricesForBouqet = new ArrayList<>();
 
-    public FlowerDAOimpl(DriverManagerDataSource dataSource) {
+    @Autowired
+    public FlowerDAOimpl(DataSource dataSource) {
         try {
             this.conn = dataSource.getConnection();
         } catch (SQLException e) {

@@ -1,18 +1,23 @@
 package com.flowergarden.DAO.impl;
 
 import com.flowergarden.DAO.BouqetDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 /**
  * Created by OleksiiF on 13.03.2018.
  */
+@Repository
 public class BouquetDAOimpl implements BouqetDAO {
 
     private Connection conn;
 
-    public BouquetDAOimpl(DriverManagerDataSource dataSource) {
+    @Autowired
+    public BouquetDAOimpl(DataSource dataSource) {
         try {
             this.conn = dataSource.getConnection();
         } catch (SQLException e) {
