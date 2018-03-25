@@ -20,6 +20,5 @@ public interface FlowerDAO {
     void addFlower(Flower flower);
 
     ArrayList<Float> getFlowerPricesForBouqet(int bouqetId) throws IOException;
-    void setConnection(Connection conn);
 
 }

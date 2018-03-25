@@ -4,7 +4,6 @@ import com.flowergarden.DAO.FlowerDAO;
 import com.flowergarden.flowers.*;
 import com.flowergarden.properties.FreshnessInteger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -34,15 +33,16 @@ public class FlowerDAOimpl implements FlowerDAO {
     @Override
     public ArrayList<FlowerWrapper> getAllFlowers() {
         ArrayList<FlowerWrapper> allFlowers = new ArrayList<>();
-        FlowerWrapper flower = new FlowerWrapper();
 
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM flower");
             while (rs.next()) {
+                FlowerWrapper flower = new FlowerWrapper();
+
                 flower.setId(rs.getInt("id"));
                 flower.setName(rs.getString("name"));
-                flower.setLength(rs.getInt("lenght"));//as named in db
+                flower.setLenght(rs.getInt("lenght"));//as named in db
                 flower.setFreshness(new FreshnessInteger(rs.getInt("freshness")));
                 flower.setPrice(rs.getFloat("price"));
                 flower.setPetals(rs.getInt("petals"));
@@ -67,12 +67,12 @@ public class FlowerDAOimpl implements FlowerDAO {
 
 
         try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM flower WHERE id= ?");
-            st.setInt(1, id);
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM flower WHERE id="+id);
+            //st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             flowerWrapper.setId(rs.getInt("id"));
             flowerWrapper.setName(rs.getString("name"));
-            flowerWrapper.setLength(rs.getInt("lenght"));//as named in db
+            flowerWrapper.setLenght(rs.getInt("lenght"));//as named in db
             flowerWrapper.setFreshness(new FreshnessInteger(rs.getInt("freshness")));
             flowerWrapper.setPrice(rs.getFloat("price"));
             flowerWrapper.setPetals(rs.getInt("petals"));
@@ -95,7 +95,7 @@ public class FlowerDAOimpl implements FlowerDAO {
         try {
             PreparedStatement st = conn.prepareStatement("UPDATE flower SET lenght = ?, " +
                     "freshness = ?, price = ?, petals = ?, spike = ?, bouquet_id = ?  WHERE id =?");
-            st.setFloat(1, flower.getLength());
+            st.setFloat(1, flower.getLenght());
             st.setInt(2, flower.getFreshness().getFreshness());
             st.setFloat(3, flower.getPrice());
             st.setInt(6, flower.getBouquetId());
@@ -176,10 +176,5 @@ public class FlowerDAOimpl implements FlowerDAO {
             e.printStackTrace();
         }
         return resultArrayListWithPricesForBouqet;
-    }
-
-    @Override
-    public void setConnection(Connection conn) {
-        this.conn = conn;
     }
 }

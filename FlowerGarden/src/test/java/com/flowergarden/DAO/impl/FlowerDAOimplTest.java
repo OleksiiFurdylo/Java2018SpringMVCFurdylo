@@ -4,14 +4,13 @@ import com.flowergarden.flowers.*;
 import com.flowergarden.properties.FreshnessInteger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,8 +23,13 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration("classpath:application-context.xml")
 public class FlowerDAOimplTest {
 
+    @Mock
+    private DataSource dataSource;
+
     /*@InjectMocks
-    private FlowerDAOimpl flowerDAOimpl = ;
+    private FlowerDAOimpl flowerDAOimpl = new FlowerDAOimpl(dataSource);*/
+
+    private FlowerDAOimpl flowerDAOimpl;
 
     @Mock
     private Connection conn;
@@ -39,34 +43,43 @@ public class FlowerDAOimplTest {
     @Mock
     private ResultSet rs;
 
-    private FlowerWrapper flowerRose;
-    private int testID = 6;
+    @Mock
+    private FlowerWrapper flowerWrapper;
+
+    private FlowerWrapper flowerRoseWrapped;
+    private Chamomile flowerChamomile;
+    private int testID = 7;
 
 
     @Before
     public void initFlowerDao() throws SQLException {
-        //flowerDAOimpl.setConnection(conn);
+        when(dataSource.getConnection()).thenReturn(conn);
         when(conn.prepareStatement(any(String.class))).thenReturn(prst);
         when(conn.createStatement()).thenReturn(prst);
         when(st.executeQuery(any(String.class))).thenReturn(rs);
 
-        flowerRose = new FlowerWrapper();
-        flowerRose.setBouquetId(1);
-        flowerRose.setId(testID);
-        flowerRose.setName("rose");
-        flowerRose.setLength(121);
-        flowerRose.setFreshness(new FreshnessInteger(1));
-        flowerRose.setPrice(15.6f);
-        flowerRose.setSpike(1);
+        flowerDAOimpl = new FlowerDAOimpl(dataSource);
 
-        when(rs.getInt("bouquet_id")).thenReturn(flowerRose.getBouquetId());
-        when(rs.getInt("id")).thenReturn(flowerRose.getId());
-        when(rs.getString("name")).thenReturn(flowerRose.getName());
-        when(rs.getInt("lenght")).thenReturn(flowerRose.getLength());
-        when(rs.getInt("freshness")).thenReturn(flowerRose.getFreshness().getFreshness());
-        when(rs.getFloat("price")).thenReturn(flowerRose.getPrice());
-        when(rs.getInt("petals")).thenReturn(flowerRose.getPetals());
-        when(rs.getInt("spike")).thenReturn(flowerRose.getSpike());
+        flowerRoseWrapped = new FlowerWrapper();
+        flowerRoseWrapped.setBouquetId(1);
+        flowerRoseWrapped.setId(testID);
+        flowerRoseWrapped.setName("rose");
+        flowerRoseWrapped.setLenght(123);
+        flowerRoseWrapped.setFreshness(new FreshnessInteger(1));
+        flowerRoseWrapped.setPrice(15.6f);
+        flowerRoseWrapped.setSpike(1);
+
+        flowerChamomile = new Chamomile(8, 22, 15f, new FreshnessInteger(9));
+        flowerChamomile.setBouquetId(2);
+
+        when(rs.getInt("bouquet_id")).thenReturn(flowerRoseWrapped.getBouquetId());
+        when(rs.getInt("id")).thenReturn(flowerRoseWrapped.getId());
+        when(rs.getString("name")).thenReturn(flowerRoseWrapped.getName());
+        when(rs.getInt("lenght")).thenReturn(flowerRoseWrapped.getLenght());
+        when(rs.getInt("freshness")).thenReturn(flowerRoseWrapped.getFreshness().getFreshness());
+        when(rs.getFloat("price")).thenReturn(flowerRoseWrapped.getPrice());
+        when(rs.getInt("petals")).thenReturn(flowerRoseWrapped.getPetals());
+        when(rs.getInt("spike")).thenReturn(flowerRoseWrapped.getSpike());
 
         when(rs.next()).thenReturn(true).thenReturn(false);
 
@@ -74,22 +87,16 @@ public class FlowerDAOimplTest {
         when(prst.executeUpdate()).thenReturn(1);
     }
 
-
     @Test
-    public void updateFlower() throws Exception { // test not working not updating, but is it have to?
-        flowerDAOimpl.addFlower(flowerRose);
-        flowerRose.setPrice(23);
-        flowerDAOimpl.updateFlower(flowerRose);
-
-        Assert.assertEquals(flowerRose.getPrice(), flowerDAOimpl.getFlower(2).getPrice(), 0.0);
-
+    public void addFlower() throws Exception {
+        flowerDAOimpl.addFlower(flowerChamomile);
     }
 
     @Test
-    public void addFlower() throws Exception {
-        flowerDAOimpl.addFlower(flowerRose);
-        Assert.assertEquals(flowerRose.getLenght(), flowerDAOimpl.getFlower(testID).getLenght());
-
+    public void updateFlower() throws Exception {
+        flowerDAOimpl.addFlower(flowerRoseWrapped);
+        flowerRoseWrapped.setPrice(23);
+        flowerDAOimpl.updateFlower(flowerRoseWrapped);
     }
 
     @Test
@@ -101,12 +108,6 @@ public class FlowerDAOimplTest {
         for (Float f: flowerPrices) {price += f;}
         Assert.assertEquals(15.6f, price, 0.1); // one flower in bouquet and assemble price added in service
 
-    }*/
-
-/*    @Test
-    public void setConnection() throws Exception {
-        flowerDAOimpl.setConnection(conn);
-        Assert.assertEquals(false, conn.isClosed());
-    }*/
+    }
 
 }

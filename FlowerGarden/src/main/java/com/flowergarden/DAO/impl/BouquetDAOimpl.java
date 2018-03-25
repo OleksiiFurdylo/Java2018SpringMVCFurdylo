@@ -42,10 +42,5 @@ public class BouquetDAOimpl implements BouqetDAO {
         return assemblePrice;
     }
 
-    @Override
-    public void setConnection(Connection conn) {
-        this.conn = conn;
-    }
-
 
 }

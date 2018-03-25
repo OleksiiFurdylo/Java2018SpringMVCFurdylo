@@ -9,7 +9,7 @@ public class FlowerWrapper extends GeneralFlower {
 
     private int id;
     private String name;
-    private int length;
+    private int lenght;
     private FreshnessInteger freshness;
     private float price;
     private int petals;
@@ -24,8 +24,8 @@ public class FlowerWrapper extends GeneralFlower {
         this.name = name;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
     }
 
     public void setFreshness(FreshnessInteger freshness) {
@@ -57,8 +57,8 @@ public class FlowerWrapper extends GeneralFlower {
         return name;
     }
 
-    public int getLength() {
-        return length;
+    public int getLenght() {
+        return lenght;
     }
 
     @Override

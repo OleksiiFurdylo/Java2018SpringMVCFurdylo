@@ -8,5 +8,4 @@ import java.sql.Connection;
  */
 public interface BouqetDAO {
     float getAssemblePriceForBouqet (int bouqetId);
-    void setConnection(Connection conn);
 }

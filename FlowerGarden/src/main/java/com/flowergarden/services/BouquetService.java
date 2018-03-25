@@ -2,6 +2,7 @@ package com.flowergarden.services;
 
 import com.flowergarden.DAO.impl.BouquetDAOimpl;
 import com.flowergarden.DAO.impl.FlowerDAOimpl;
+import com.flowergarden.flowers.FlowerWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
