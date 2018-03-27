@@ -54,6 +54,7 @@ public class FlowerDAOimplTest {
     @Before
     public void initFlowerDao() throws SQLException {
         when(dataSource.getConnection()).thenReturn(conn);
+
         when(conn.prepareStatement(any(String.class))).thenReturn(prst);
         when(conn.createStatement()).thenReturn(prst);
         when(st.executeQuery(any(String.class))).thenReturn(rs);
@@ -90,6 +91,7 @@ public class FlowerDAOimplTest {
     @Test
     public void addFlower() throws Exception {
         flowerDAOimpl.addFlower(flowerChamomile);
+
     }
 
     @Test
