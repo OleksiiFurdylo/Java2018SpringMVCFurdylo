@@ -18,6 +18,7 @@ public interface FlowerDAO {
     void updateFlower(FlowerWrapper flower);
     void deleteFlower(int id);
     void addFlower(Flower flower);
+    void closeConnection();
 
     ArrayList<Float> getFlowerPricesForBouqet(int bouqetId) throws IOException;
 

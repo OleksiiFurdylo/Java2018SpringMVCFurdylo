@@ -16,7 +16,7 @@ public class RunJSON {
         bouquetJSONService.saveBouquetService(1);
 
         System.out.println(bouquetJSONService.readBouquetService(1).getName()+"<- bouquet from json");
-
+        System.out.println(bouquetJSONService.readBouquetService(1).getAssemblyPrice()+"<ap");
 
 
     }

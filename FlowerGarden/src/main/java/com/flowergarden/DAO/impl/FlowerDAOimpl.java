@@ -111,6 +111,7 @@ public class FlowerDAOimpl implements FlowerDAO {
             st.close();
             rs.close();
 
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -133,9 +134,8 @@ public class FlowerDAOimpl implements FlowerDAO {
             if(flower.getName().equals("chamomile")) {st.setInt(4, flower.getPetals());}
 
             st.executeUpdate();
-
-
             st.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -203,5 +203,14 @@ public class FlowerDAOimpl implements FlowerDAO {
             e.printStackTrace();
         }
         return resultArrayListWithPricesForBouqet;
+    }
+
+    @Override
+    public void closeConnection(){
+        try {
+            this.conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

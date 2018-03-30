@@ -35,6 +35,11 @@ public class BouquetService {
             priceOfFlowersTogeather += flowerPrice;
         }
 
-        return priceOfFlowersTogeather + bouquetDAOimpl.getAssemblePriceForBouqet(bouqetId);
+        float assemblePrice = bouquetDAOimpl.getAssemblePriceForBouqet(bouqetId);
+
+        flowerDAOimpl.closeConnection();
+        bouquetDAOimpl.closeConnection();
+
+        return priceOfFlowersTogeather + assemblePrice;
     }
 }

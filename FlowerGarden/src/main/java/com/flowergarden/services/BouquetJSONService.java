@@ -44,6 +44,7 @@ public class BouquetJSONService {
         bouquetWrapper.setAssemblyPrice(bouquetDAOimpl.getAssemblePriceForBouqet(bouquetId));
         bouquetWrapper.setFlowerWrappers(flowerDAOimpl.getFlowersInBouquet(bouquetId));
         bouquetWrapper.setId(bouquetId);
+        bouquetDAOimpl.closeConnection();
 
         bouquetJSONDAOimpl.saveBouquetToFile(bouquetWrapper);
     }

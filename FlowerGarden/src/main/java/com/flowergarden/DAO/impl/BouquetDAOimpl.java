@@ -66,4 +66,14 @@ public class BouquetDAOimpl implements BouqetDAO {
     }
 
 
+    @Override
+    public void closeConnection() {
+        try {
+            this.conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
