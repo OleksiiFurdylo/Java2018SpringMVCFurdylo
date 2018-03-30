@@ -13,9 +13,9 @@ public class RunJSON {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
         BouquetJSONService bouquetJSONService = ctx.getBean("bouquetJSONService", BouquetJSONService.class);
-        bouquetJSONService.saveBouquetToFile(1);
+        bouquetJSONService.saveBouquetService(1);
 
-        System.out.println(bouquetJSONService.readBouquetFromFile(1).getName()+"<- from json");
+        System.out.println(bouquetJSONService.readBouquetService(1).getName()+"<- from json");
 
 
 
