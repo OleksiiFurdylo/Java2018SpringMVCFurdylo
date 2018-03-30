@@ -15,7 +15,7 @@ public class RunJSON {
         BouquetJSONService bouquetJSONService = ctx.getBean("bouquetJSONService", BouquetJSONService.class);
         bouquetJSONService.saveBouquetService(1);
 
-        System.out.println(bouquetJSONService.readBouquetService(1).getName()+"<- from json");
+        System.out.println(bouquetJSONService.readBouquetService(1).getName()+"<- bouquet from json");
 
 
 
