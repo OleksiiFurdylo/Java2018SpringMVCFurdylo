@@ -2,11 +2,17 @@ package com.flowergarden.flowers;
 
 import com.flowergarden.properties.FreshnessInteger;
 
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+
 /**
  * Created by OleksiiF on 16.03.2018.
  */
+@XmlRootElement(name = "flower")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FlowerWrapper extends GeneralFlower {
 
+    @XmlElement(name = "flower Id")
     private int id;
     private String name;
     private int lenght;
@@ -15,6 +21,7 @@ public class FlowerWrapper extends GeneralFlower {
     private int petals;
     private int spike;
     private int bouquetId;
+
 
     public void setId(int id) {
         this.id = id;

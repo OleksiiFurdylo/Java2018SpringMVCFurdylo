@@ -35,11 +35,34 @@ public class BouquetDAOimpl implements BouqetDAO {
             ResultSet rs = st.executeQuery();
             assemblePrice = rs.getFloat("assemble_price");
 
+
+            st.close();
+            rs.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return assemblePrice;
+    }
+
+    public String getBouquetName(int bouquetId) {
+        String name = "";
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT name FROM bouquet WHERE bouquet.id = ?");
+            st.setInt(1, bouquetId);
+            ResultSet rs = st.executeQuery();
+            name = rs.getString("name");
+
+
+            st.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return name;
     }
 
 

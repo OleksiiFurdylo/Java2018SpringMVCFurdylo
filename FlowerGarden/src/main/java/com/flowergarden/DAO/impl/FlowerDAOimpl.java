@@ -37,6 +37,41 @@ public class FlowerDAOimpl implements FlowerDAO {
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM flower");
+
+            fillFlowersFromResultSet(rs, allFlowers);
+
+            st.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allFlowers;
+    }
+
+    public ArrayList<FlowerWrapper> getFlowersInBouquet(int bouquetId) {
+        ArrayList<FlowerWrapper> allFlowers = new ArrayList<>();
+
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM flower WHERE bouquet_id=?");
+            st.setInt(1, bouquetId);
+            ResultSet rs = st.executeQuery();
+
+            fillFlowersFromResultSet(rs, allFlowers);
+
+            st.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        }
+        return allFlowers;
+    }
+
+    private void fillFlowersFromResultSet(ResultSet rs,  ArrayList<FlowerWrapper> allFlowers) {
+
+        try {
             while (rs.next()) {
                 FlowerWrapper flower = new FlowerWrapper();
 
@@ -51,14 +86,9 @@ public class FlowerDAOimpl implements FlowerDAO {
 
                 allFlowers.add(flower);
             }
-
-            st.close();
-            rs.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return allFlowers;
     }
 
     @Override
@@ -68,7 +98,6 @@ public class FlowerDAOimpl implements FlowerDAO {
 
         try {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM flower WHERE id="+id);
-            //st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             flowerWrapper.setId(rs.getInt("id"));
             flowerWrapper.setName(rs.getString("name"));
@@ -114,7 +143,6 @@ public class FlowerDAOimpl implements FlowerDAO {
 
     @Override
     public void deleteFlower(int flowerID) {
-        //int id = ((GeneralFlower) flower).getFlowerId();
         try {
             Statement st = conn.createStatement();
             st.execute("DELETE FROM flowers WHERE id = "+ flowerID);
@@ -161,7 +189,6 @@ public class FlowerDAOimpl implements FlowerDAO {
     public ArrayList<Float> getFlowerPricesForBouqet(int bouqetId) {
 
         try {
-            //PreparedStatement st = conn.prepareStatement("SELECT price FROM flower WHERE flower.bouquet_id = ?");
             PreparedStatement st = conn.prepareStatement("SELECT * FROM flower WHERE flower.bouquet_id = ?");
             st.setInt(1, bouqetId);
             ResultSet rs = st.executeQuery();
