@@ -60,8 +60,8 @@ public class BouquetJSONDAOimpl implements BouquetJSONDAO{
 
     @Override
     public BouquetWrapper readBouquetFromFile(int bouquetId) {
-        JAXBContext jc =  null;
 
+        JAXBContext jc =  null;
         try {
             jc = JAXBContext.newInstance(BouquetWrapper.class);
 

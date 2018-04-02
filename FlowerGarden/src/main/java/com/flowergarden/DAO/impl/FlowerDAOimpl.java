@@ -159,7 +159,7 @@ public class FlowerDAOimpl implements FlowerDAO {
         try {
             PreparedStatement st = conn.prepareStatement(
                     "INSERT INTO flower (name, lenght, price, freshness, petals, spike, bouquet_id) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             st.setFloat(2, flower.getLenght());
             st.setFloat(3, flower.getPrice());

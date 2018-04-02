@@ -13,31 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class BouquetJSONService {
 
+    @Autowired
     private FlowerDAOimpl flowerDAOimpl;
+    @Autowired
     private BouquetDAOimpl bouquetDAOimpl;
+    @Autowired
     private BouquetWrapper bouquetWrapper;
+    @Autowired
     private BouquetJSONDAOimpl bouquetJSONDAOimpl;
-
-    @Autowired
-    public void setBouquetJSONDAOimpl(BouquetJSONDAOimpl bouquetJSONDAOimpl) {
-        this.bouquetJSONDAOimpl = bouquetJSONDAOimpl;
-    }
-
-    @Autowired
-    public void setBouquetWrapper(BouquetWrapper bouquetWrapper) {
-        this.bouquetWrapper = bouquetWrapper;
-    }
-
-    @Autowired
-    public void setBouquetDAOimpl(BouquetDAOimpl bouquetDAOimpl) {
-        this.bouquetDAOimpl = bouquetDAOimpl;
-    }
-
-    @Autowired
-    public void setFlowerDAOimpl(FlowerDAOimpl flowerDAOimpl) {
-        this.flowerDAOimpl = flowerDAOimpl;
-    }
-
 
     public void saveBouquetService(int bouquetId){
         bouquetWrapper.setName(bouquetDAOimpl.getBouquetName(bouquetId));
@@ -50,6 +33,7 @@ public class BouquetJSONService {
     }
 
     public BouquetWrapper readBouquetService(int bouquetId){
+        System.out.println("service");
         return bouquetJSONDAOimpl.readBouquetFromFile(bouquetId);
     }
 

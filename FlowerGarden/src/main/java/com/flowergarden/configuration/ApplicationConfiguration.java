@@ -26,6 +26,6 @@ public class ApplicationConfiguration {
         DriverManagerDataSource  dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getProperty("jdbc.url"));
-    return dataSource;
+        return dataSource;
     }
 }
