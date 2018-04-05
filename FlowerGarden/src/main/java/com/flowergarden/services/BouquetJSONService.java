@@ -27,13 +27,12 @@ public class BouquetJSONService {
         bouquetWrapper.setAssemblyPrice(bouquetDAOimpl.getAssemblePriceForBouqet(bouquetId));
         bouquetWrapper.setFlowerWrappers(flowerDAOimpl.getFlowersInBouquet(bouquetId));
         bouquetWrapper.setId(bouquetId);
-        bouquetDAOimpl.closeConnection();
+        //bouquetDAOimpl.closeConnection();
 
         bouquetJSONDAOimpl.saveBouquetToFile(bouquetWrapper);
     }
 
     public BouquetWrapper readBouquetService(int bouquetId){
-        System.out.println("service");
         return bouquetJSONDAOimpl.readBouquetFromFile(bouquetId);
     }
 

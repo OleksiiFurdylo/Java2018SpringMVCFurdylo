@@ -37,8 +37,8 @@ public class BouquetService {
 
         float assemblePrice = bouquetDAOimpl.getAssemblePriceForBouqet(bouqetId);
 
-        flowerDAOimpl.closeConnection();
-        bouquetDAOimpl.closeConnection();
+        //flowerDAOimpl.closeConnection();
+        //bouquetDAOimpl.closeConnection();
 
         return priceOfFlowersTogeather + assemblePrice;
     }
